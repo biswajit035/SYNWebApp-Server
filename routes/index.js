@@ -1,15 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const authRoute = require("./auth.route");
-// const pagesRoute = require("./pages.route");
-const apiRoute = require("./api.route");
-// const uploadRouter = require('./upload.route');
-
-// router.get("/", (req, res) => {
-//   res.render("home");
-// });
-
+const authRoute = require("./auth");
+const apiRoute = require("./api");
 
 
 router.use("/auth", authRoute);

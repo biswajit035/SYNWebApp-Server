@@ -1,10 +1,7 @@
 const express = require("express");
 // const getUser = require("./middleware/getUser");
 const mongoose = require("mongoose");
-const cookiParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-var flash = require("connect-flash");
-var session = require("express-session");
 const dotenv = require("dotenv").config();
 const routes = require("./routes/index");
 const cors = require("cors");
@@ -25,26 +22,12 @@ mongoose
     console.log(err.message);
   });
 
-//app.set('views', path.join(__dirname, 'views'))
-app.set("view engine", "ejs");
-
 app.use(cors());
 app.use(bodyParser.urlencoded({ encoding: false }));
 app.use(express.static('public'));
 app.use(bodyParser.json());
-app.use(cookiParser());
-app.use(
-  session({
-    secret: "biswajit",
-    cookie: { expires: false },
-    resave: false,
-    saveUninitialized: false,
-  }),
-);
-app.use(flash());
 
-//routes:
-// app.get("*", getUser);
+
 app.use(routes);
 
 app.listen(PORT, () => {

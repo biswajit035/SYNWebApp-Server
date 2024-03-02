@@ -4,7 +4,7 @@ const User=require("../mongoSchema/userSchema")
 const authcheak=(req,res,next)=>{
         const token=req.header('token');
         if(token==null){
-            res.status(300).json({ error: "Unauthorized User"  })
+            return res.status(300).json({ error: "Unauthorized User"  })
         }
         else{
         const verifiedtoken=jwt.verify(token,process.env.SECRET_KEY);
@@ -19,12 +19,4 @@ const authcheak=(req,res,next)=>{
         
 }
 
-const authcheakForsignin=(req,res,next)=>{
-    const token=req.cookies.jwtoken;
-    if(token!=null){
-        res.status(300).json({ error: "Unauthorized User"  })
-    }
-    next();
-}
-
-module.exports={authcheak,authcheakForsignin}
+module.exports={authcheak}
