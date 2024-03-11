@@ -52,12 +52,14 @@ router.post('/forgot-password', async (req, res) => {
     const password = Math.random()                        // Generate random number, eg: 0.123456
       .toString(36)           // Convert  to base-36 : "0.4fzyo82mvyr"
       .slice(-8)// Cut off last 8 characters : "yo82mvyr"
-    const enPassword = bcrypt.hashSync(
+    const enPassword = await bcrypt.hashSync(
       password, 10);
 
-    user.password = enPassword;
-    await user.save()
-
+    if (user) {
+      user.password = enPassword;
+      await user.save()
+    }
+    
     let transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
